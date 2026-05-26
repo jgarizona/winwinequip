@@ -316,4 +316,25 @@ textarea { resize: vertical; min-height: 90px; }
 .footer-inner a { color: var(--accent); text-decoration: none; font-size: 12px; }
 
 /* ---- Misc ---- */
+/* ---- Pictures checkbox ---- */
+.pic-check-row {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 10px 14px; background: var(--bg-input); border: 1px solid var(--border);
+  border-radius: var(--radius); cursor: pointer; transition: all var(--transition);
+  width: 100%;
+}
+.pic-check-row:hover { border-color: var(--accent); background: var(--accent-glow); }
+.pic-check-row input[type="checkbox"] {
+  width: 16px; height: 16px; accent-color: var(--accent);
+  cursor: pointer; flex-shrink: 0;
+  /* override general input styles */
+  padding: 0; background: none; border: none; box-shadow: none;
+}
+.pic-check-label {
+  font-size: 13px; font-weight: 600; text-transform: none;
+  letter-spacing: 0; color: var(--text-secondary); cursor: pointer;
+}
+.pic-check-row:has(input:checked) { border-color: var(--accent); background: var(--accent-glow); }
+.pic-check-row:has(input:checked) .pic-check-label { color: var(--text-primary); }
+
 .span-full { grid-column: 1 / -1; }

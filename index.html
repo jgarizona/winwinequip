@@ -19,10 +19,10 @@
     <div class="logo-mark">WW</div>
     <h2>Commercial Access Only</h2>
     <p>This platform connects commercial and industrial operations managing Honeywell vehicle-mounted terminal fleets. It is not open to the general public.</p>
-    <div class="gate-check" onclick="document.getElementById('gateConfirm').click()">
+    <label class="gate-check" for="gateConfirm">
       <input type="checkbox" id="gateConfirm">
-      <label for="gateConfirm">I confirm that I represent a commercial or industrial business and am accessing this platform in that capacity.</label>
-    </div>
+      <span style="font-size:13px;color:var(--text-secondary);cursor:pointer;flex:1">I confirm that I represent a commercial or industrial business and am accessing this platform in that capacity.</span>
+    </label>
     <button class="btn btn-primary btn-full" id="gateBtn" onclick="enterSite()" disabled>
       Continue to Platform
     </button>

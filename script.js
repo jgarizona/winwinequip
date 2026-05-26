@@ -78,10 +78,6 @@ function addRow() {
         <input type="number" id="qty_${idx}" name="qty_${idx}" min="1" placeholder="# of units">
       </div>
       <div class="form-group">
-        <label for="year_${idx}">Year Purchased</label>
-        <input type="number" id="year_${idx}" name="year_${idx}" min="1995" max="2026" placeholder="e.g. 2018">
-      </div>
-      <div class="form-group">
         <label for="cond_${idx}">Condition</label>
         <select id="cond_${idx}" name="cond_${idx}">
           <option value="">Select…</option>
@@ -91,12 +87,6 @@ function addRow() {
           <option>Poor — Heavy wear or partial issues</option>
           <option>For Parts / Non-functional</option>
         </select>
-      </div>
-    </div>
-    <div class="form-grid" style="margin-top:14px">
-      <div class="form-group">
-        <label for="eos_${idx}">Estimated End-of-Service Date</label>
-        <input type="month" id="eos_${idx}" name="eos_${idx}">
       </div>
       <div class="form-group">
         <label for="age_${idx}">Approx. Age of Equipment</label>
@@ -108,6 +98,18 @@ function addRow() {
           <option>6–8 years</option>
           <option>8–10 years</option>
           <option>10+ years</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-grid" style="margin-top:14px">
+      <div class="form-group span-full">
+        <label for="eos_${idx}">Estimated Remove From Service</label>
+        <select id="eos_${idx}" name="eos_${idx}">
+          <option value="">Select timeline…</option>
+          <option>Less than 6 months</option>
+          <option>6 months – 1 year</option>
+          <option>1–2 years</option>
+          <option>2+ years</option>
         </select>
       </div>
     </div>
@@ -134,11 +136,10 @@ function compileEquipmentSummary() {
   rows.forEach((row, i) => {
     const model = row.querySelector(`select[id^="model_"]`)?.value || '—';
     const qty   = row.querySelector(`input[id^="qty_"]`)?.value   || '—';
-    const yr    = row.querySelector(`input[id^="year_"]`)?.value  || '—';
     const cond  = row.querySelector(`select[id^="cond_"]`)?.value || '—';
-    const eos   = row.querySelector(`input[id^="eos_"]`)?.value   || '—';
+    const eos   = row.querySelector(`select[id^="eos_"]`)?.value  || '—';
     const age   = row.querySelector(`select[id^="age_"]`)?.value  || '—';
-    lines.push(`[Group ${i+1}] Model: ${model} | Qty: ${qty} | Yr Purchased: ${yr} | Age: ${age} | Condition: ${cond} | Est. End-of-Service: ${eos}`);
+    lines.push(`[Group ${i+1}] Model: ${model} | Qty: ${qty} | Age: ${age} | Condition: ${cond} | Est. Remove From Service: ${eos}`);
   });
   return lines.join('\n');
 }

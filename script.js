@@ -169,3 +169,51 @@ function buildModelCheckboxes(containerId) {
   });
   container.innerHTML = html;
 }
+
+/* ---- Part rows (parts page) ---- */
+let partRowCount = 0;
+
+function addPartRow() {
+  const container = document.getElementById('partRows');
+  if (!container) return;
+  const idx = partRowCount++;
+  const isFirst = idx === 0;
+  const row = document.createElement('div');
+  row.className = 'part-row';
+  row.id = `prow_${idx}`;
+  row.innerHTML = `
+    <div class="equipment-row-header">
+      <span class="equipment-row-label">Part / Component ${idx + 1}</span>
+      ${!isFirst ? `<button type="button" class="btn-remove" onclick="removePartRow('prow_${idx}')">&#x2715; Remove</button>` : ''}
+    </div>
+    <div class="form-group" style="margin-bottom:10px">
+      <label for="pdesc_${idx}">Description <span class="req">*</span></label>
+      <textarea id="pdesc_${idx}" rows="2" style="min-height:60px"
+        placeholder="e.g. Replacement display screen, docking station, keyboard assembly, power supply…"></textarea>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="pn_${idx}">Part Number (If Known)</label>
+        <input type="text" id="pn_${idx}" placeholder="e.g. VM3055CABLE">
+      </div>
+      <div class="form-group">
+        <label for="pqty_${idx}">Quantity Needed</label>
+        <input type="text" id="pqty_${idx}" placeholder="e.g. 12, approx 20">
+      </div>
+    </div>
+  `;
+  container.appendChild(row);
+  renumberPartRows();
+}
+
+function removePartRow(id) {
+  const el = document.getElementById(id);
+  if (el) { el.remove(); renumberPartRows(); }
+}
+
+function renumberPartRows() {
+  document.querySelectorAll('.part-row').forEach((r, i) => {
+    const lbl = r.querySelector('.equipment-row-label');
+    if (lbl) lbl.textContent = `Part / Component ${i + 1}`;
+  });
+}

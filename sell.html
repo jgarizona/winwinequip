@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sell Equipment — WinWin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="site-nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">WW</div>
+      <span class="logo-text">Win<span>Win</span></span>
+    </a>
+    <span class="nav-badge">Commercial Operations Only</span>
+  </div>
+</nav>
+
+<!-- ============ FORM PAGE ============ -->
+<main class="form-page">
+  <div class="container--narrow">
+
+    <div class="form-page-header">
+      <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;→&nbsp; Sell Equipment</div>
+      <h1>Equipment <em style="color:var(--accent)">Sale</em> Inquiry</h1>
+      <p>Tell us about your Honeywell vehicle-mounted terminals. Add one group per model or condition tier. All inquiries are handled confidentially within commercial channels only.</p>
+    </div>
+
+    <div id="successAlert" class="alert alert-success">
+      ✓&nbsp; Your inquiry has been received. A representative will be in touch within one business day via your preferred contact method.
+    </div>
+    <div id="errorAlert" class="alert alert-error">
+      Something went wrong submitting your form. Please try again or reach us directly at&nbsp;<a href="mailto:info@winwinequip.com" style="color:inherit;text-decoration:underline">info@winwinequip.com</a>.
+    </div>
+
+    <form id="sellForm" novalidate>
+
+      <!-- FormSubmit hidden config -->
+      <input type="hidden" name="_subject"  value="WinWin — Equipment Sale Inquiry">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha"  value="false">
+      <input type="hidden" name="equipment_details" id="equipment_details">
+      <input type="hidden" name="_replyto"  id="sell_replyto">
+
+      <!-- ===== SECTION 1: Contact ===== -->
+      <div class="form-card">
+        <h3>Your Information</h3>
+        <p class="form-card-sub">Contact details for this inquiry. Not shared externally.</p>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="company_name">Company Name <span class="req">*</span></label>
+            <input type="text" id="company_name" name="company_name" required placeholder="e.g. Acme Distribution, LLC">
+          </div>
+          <div class="form-group">
+            <label for="contact_name">Your Name <span class="req">*</span></label>
+            <input type="text" id="contact_name" name="contact_name" required placeholder="First Last">
+          </div>
+          <div class="form-group">
+            <label for="contact_phone">Phone Number <span class="req">*</span></label>
+            <input type="tel" id="contact_phone" name="contact_phone" required placeholder="(555) 000-0000">
+          </div>
+          <div class="form-group">
+            <label for="contact_email">Business Email <span class="req">*</span></label>
+            <input type="email" id="contact_email" name="contact_email" required placeholder="you@company.com">
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="form-group">
+          <label>Preferred Way to Discuss This Inquiry <span class="req">*</span></label>
+          <div class="contact-method-grid" style="margin-top:10px">
+            <div>
+              <input type="radio" name="contact_method" id="cm1" value="Phone Call" class="contact-method-option" required>
+              <label for="cm1" class="contact-method-label">
+                <span class="cm-icon">📞</span>
+                <span>Phone Call</span>
+              </label>
+            </div>
+            <div>
+              <input type="radio" name="contact_method" id="cm2" value="Email" class="contact-method-option">
+              <label for="cm2" class="contact-method-label">
+                <span class="cm-icon">✉️</span>
+                <span>Email</span>
+              </label>
+            </div>
+            <div>
+              <input type="radio" name="contact_method" id="cm3" value="Video Call" class="contact-method-option">
+              <label for="cm3" class="contact-method-label">
+                <span class="cm-icon">🎥</span>
+                <span>Video Call</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 2: Equipment ===== -->
+      <div class="form-card">
+        <h3>Equipment Details</h3>
+        <p class="form-card-sub">Add a group for each model you are looking to sell. Use separate groups for different condition tiers of the same model.</p>
+
+        <div class="equipment-rows" id="equipmentRows">
+          <!-- Populated by script.js addRow() -->
+        </div>
+
+        <button type="button" class="btn-add" onclick="addRow()">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+          Add Another Model / Group
+        </button>
+      </div>
+
+      <!-- ===== SECTION 3: Notes ===== -->
+      <div class="form-card">
+        <h3>Additional Information</h3>
+        <p class="form-card-sub">Anything else we should know about the equipment or transaction.</p>
+        <div class="form-group">
+          <label for="notes">Notes (Optional)</label>
+          <textarea id="notes" name="notes" placeholder="Original packaging available, accessories included, reason for fleet replacement, purchasing urgency, preferred transaction format, etc."></textarea>
+        </div>
+      </div>
+
+      <!-- ===== SUBMIT ===== -->
+      <div class="form-actions">
+        <p class="form-actions-note">* Required fields &nbsp;·&nbsp; All inquiries remain within commercial channels</p>
+        <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+          Submit Inquiry
+          <div class="spinner" id="spinner"></div>
+        </button>
+      </div>
+
+    </form>
+  </div>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>© 2025 WinWin Equipment Exchange &nbsp;·&nbsp; Commercial operations only</p>
+    <a href="mailto:info@winwinequip.com">info@winwinequip.com</a>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  // Gate check
+  if (!sessionStorage.getItem('ww_verified')) {
+    window.location.href = 'index.html';
+  }
+
+  // Initialize first equipment row
+  addRow();
+
+  // Form submission
+  document.getElementById('sellForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    // Validate at least one model selected
+    const rows = document.querySelectorAll('.equipment-row');
+    let allValid = true;
+    rows.forEach(row => {
+      const sel = row.querySelector('select[id^="model_"]');
+      if (sel && !sel.value) {
+        sel.style.borderColor = 'var(--danger)';
+        allValid = false;
+      }
+    });
+    if (!allValid) {
+      alert('Please select a model for each equipment group.');
+      return;
+    }
+
+    // Validate contact method
+    const cm = document.querySelector('input[name="contact_method"]:checked');
+    if (!cm) {
+      alert('Please select a preferred contact method.');
+      return;
+    }
+
+    // Compile equipment rows into readable summary
+    document.getElementById('equipment_details').value = compileEquipmentSummary();
+
+    // Set reply-to
+    document.getElementById('sell_replyto').value = document.getElementById('contact_email').value;
+
+    // Submit
+    const btn     = document.getElementById('submitBtn');
+    const spinner = document.getElementById('spinner');
+    btn.disabled  = true;
+    spinner.style.display = 'inline-block';
+
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/info@winwinequip.com', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(this)
+      });
+      if (res.ok) {
+        document.getElementById('successAlert').classList.add('show');
+        this.style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else { throw new Error(); }
+    } catch {
+      document.getElementById('errorAlert').classList.add('show');
+      btn.disabled = false;
+      spinner.style.display = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>

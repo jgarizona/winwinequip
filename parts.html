@@ -12,7 +12,6 @@
 </head>
 <body>
 
-<!-- ============ NAV ============ -->
 <nav class="site-nav">
   <div class="container nav-inner">
     <a href="index.html" class="logo">
@@ -23,7 +22,6 @@
   </div>
 </nav>
 
-<!-- ============ FORM PAGE ============ -->
 <main class="form-page">
   <div class="container--narrow">
 
@@ -37,23 +35,21 @@
       ✓&nbsp; Your parts inquiry has been received. A specialist will be in touch within one business day via your preferred contact method.
     </div>
     <div id="errorAlert" class="alert alert-error">
-      Something went wrong submitting your form. Please try again or reach us at&nbsp;<a href="mailto:info@winwinequip.com" style="color:inherit;text-decoration:underline">info@winwinequip.com</a>.
+      Something went wrong. Please try again or email <a href="mailto:info@winwinequip.com" style="color:inherit;text-decoration:underline">info@winwinequip.com</a>.
     </div>
 
     <form id="partsForm" novalidate>
-
-      <!-- FormSubmit config -->
-      <input type="hidden" name="_subject"       value="WinWin — Spare Parts Inquiry">
-      <input type="hidden" name="_template"      value="table">
-      <input type="hidden" name="_captcha"       value="false">
+      <input type="hidden" name="_subject"        id="parts_subject">
+      <input type="hidden" name="_template"       value="table">
+      <input type="hidden" name="_captcha"        value="false">
+      <input type="hidden" name="lead_reference"  id="parts_lead_ref">
       <input type="hidden" name="models_selected" id="models_selected">
-      <input type="hidden" name="_replyto"       id="parts_replyto">
+      <input type="hidden" name="_replyto"        id="parts_replyto">
 
-      <!-- ===== SECTION 1: Contact ===== -->
+      <!-- SECTION 1: Contact -->
       <div class="form-card">
         <h3>Your Information</h3>
         <p class="form-card-sub">Contact details for this inquiry. Not shared externally.</p>
-
         <div class="form-grid">
           <div class="form-group">
             <label for="company_name">Company Name <span class="req">*</span></label>
@@ -72,56 +68,38 @@
             <input type="email" id="contact_email" name="contact_email" required placeholder="you@company.com">
           </div>
         </div>
-
         <hr class="divider">
-
         <div class="form-group">
-          <label>Preferred Way to Discuss This Inquiry <span class="req">*</span></label>
+          <label>Preferred Way to Discuss <span class="req">*</span></label>
           <div class="contact-method-grid" style="margin-top:10px">
             <div>
               <input type="radio" name="contact_method" id="cm1" value="Phone Call" class="contact-method-option" required>
-              <label for="cm1" class="contact-method-label">
-                <span class="cm-icon">📞</span>
-                <span>Phone Call</span>
-              </label>
+              <label for="cm1" class="contact-method-label"><span class="cm-icon">📞</span><span>Phone Call</span></label>
             </div>
             <div>
               <input type="radio" name="contact_method" id="cm2" value="Email" class="contact-method-option">
-              <label for="cm2" class="contact-method-label">
-                <span class="cm-icon">✉️</span>
-                <span>Email</span>
-              </label>
+              <label for="cm2" class="contact-method-label"><span class="cm-icon">✉️</span><span>Email</span></label>
             </div>
             <div>
               <input type="radio" name="contact_method" id="cm3" value="Video Call" class="contact-method-option">
-              <label for="cm3" class="contact-method-label">
-                <span class="cm-icon">🎥</span>
-                <span>Video Call</span>
-              </label>
+              <label for="cm3" class="contact-method-label"><span class="cm-icon">🎥</span><span>Video Call</span></label>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ===== SECTION 2: Models ===== -->
+      <!-- SECTION 2: Models -->
       <div class="form-card">
         <h3>Equipment Models</h3>
         <p class="form-card-sub">Select all Honeywell vehicle terminal models you need spare parts for.</p>
-
-        <div class="model-check-grid" id="modelCheckGrid">
-          <!-- Populated by buildModelCheckboxes() in script.js -->
-        </div>
-
-        <p id="modelError" style="color:var(--danger);font-size:13px;margin-top:12px;display:none">
-          Please select at least one model.
-        </p>
+        <div class="model-check-grid" id="modelCheckGrid"></div>
+        <p id="modelError" style="color:var(--danger);font-size:13px;margin-top:12px;display:none">Please select at least one model.</p>
       </div>
 
-      <!-- ===== SECTION 3: Procurement Timeline ===== -->
+      <!-- SECTION 3: Timeline -->
       <div class="form-card">
         <h3>Procurement Timeline</h3>
-        <p class="form-card-sub">When do you need these parts? This helps us prioritize your inquiry.</p>
-
+        <p class="form-card-sub">When do you need these parts?</p>
         <div class="urgency-grid">
           <div>
             <input type="radio" name="urgency" id="urg1" value="Immediate — Need ASAP" class="urgency-option" required>
@@ -150,18 +128,15 @@
         </div>
       </div>
 
-      <!-- ===== SECTION 4: Parts Detail ===== -->
+      <!-- SECTION 4: Parts Detail -->
       <div class="form-card">
         <h3>Parts &amp; Components Needed</h3>
-        <p class="form-card-sub">Describe what you need — as specifically or broadly as you like. Part numbers are helpful but not required.</p>
-
+        <p class="form-card-sub">Describe what you need. Part numbers helpful but not required.</p>
         <div class="form-group">
           <label for="parts_needed">Parts / Components Description <span class="req">*</span></label>
-          <textarea id="parts_needed" name="parts_needed" required
-            style="min-height:120px"
+          <textarea id="parts_needed" name="parts_needed" required style="min-height:120px"
             placeholder="e.g. Replacement displays for Thor VM3, keyboard assemblies for VM1A, docking stations, power supplies, RAM mounts, cables…"></textarea>
         </div>
-
         <div class="form-grid" style="margin-top:16px">
           <div class="form-group">
             <label for="qty_needed">Approximate Quantity</label>
@@ -172,49 +147,38 @@
             <input type="text" id="part_numbers" name="part_numbers" placeholder="e.g. VM3055CABLE, VM1001VMCRADLE">
           </div>
         </div>
-
         <div class="form-group" style="margin-top:16px">
           <label for="notes">Additional Notes (Optional)</label>
-          <textarea id="notes" name="notes" placeholder="Budget range, special certifications required, delivery location, existing support contract details, etc."></textarea>
+          <textarea id="notes" name="notes" placeholder="Budget range, delivery location, existing support contract details, etc."></textarea>
         </div>
       </div>
 
-      <!-- ===== SUBMIT ===== -->
       <div class="form-actions">
-        <p class="form-actions-note">* Required fields &nbsp;·&nbsp; All inquiries remain within commercial channels</p>
+        <p class="form-actions-note">* Required fields &nbsp;·&nbsp; Commercial channels only</p>
         <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
           Submit Parts Inquiry
           <div class="spinner" id="spinner"></div>
         </button>
       </div>
-
     </form>
   </div>
 </main>
 
-<!-- ============ FOOTER ============ -->
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p>© 2025 WinWin Equipment Exchange &nbsp;·&nbsp; Commercial operations only</p>
+    <p>2025 WinWin Equipment Exchange &nbsp;·&nbsp; Commercial operations only</p>
     <a href="mailto:info@winwinequip.com">info@winwinequip.com</a>
   </div>
 </footer>
 
 <script src="script.js"></script>
 <script>
-  // Gate check
-  if (!sessionStorage.getItem('ww_verified')) {
-    window.location.href = 'index.html';
-  }
-
-  // Build model checkboxes
+  if (!sessionStorage.getItem('ww_verified')) { window.location.href = 'index.html'; }
   buildModelCheckboxes('modelCheckGrid');
 
-  // Form submission
-  document.getElementById('partsForm').addEventListener('submit', async function (e) {
+  document.getElementById('partsForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    // Validate at least one model checked
     const checked = document.querySelectorAll('.model-check-option:checked');
     const modelErr = document.getElementById('modelError');
     if (checked.length === 0) {
@@ -224,34 +188,27 @@
     }
     modelErr.style.display = 'none';
 
-    // Validate urgency
-    const urgency = document.querySelector('input[name="urgency"]:checked');
-    if (!urgency) {
-      alert('Please select a procurement timeline.');
-      return;
+    if (!document.querySelector('input[name="urgency"]:checked')) {
+      alert('Please select a procurement timeline.'); return;
+    }
+    if (!document.querySelector('input[name="contact_method"]:checked')) {
+      alert('Please select a preferred contact method.'); return;
     }
 
-    // Validate contact method
-    const cm = document.querySelector('input[name="contact_method"]:checked');
-    if (!cm) {
-      alert('Please select a preferred contact method.');
-      return;
-    }
+    // Generate lead reference and subject
+    const leadRef = getLeadID();
+    document.getElementById('parts_lead_ref').value  = leadRef;
+    document.getElementById('parts_subject').value   = buildSubject('Spare Parts');
+    document.getElementById('models_selected').value = Array.from(checked).map(c => c.value).join(', ');
+    document.getElementById('parts_replyto').value   = document.getElementById('contact_email').value;
 
-    // Compile selected models
-    const modelList = Array.from(checked).map(c => c.value).join(', ');
-    document.getElementById('models_selected').value = modelList;
-
-    // Set reply-to
-    document.getElementById('parts_replyto').value = document.getElementById('contact_email').value;
-
-    const btn     = document.getElementById('submitBtn');
+    const btn = document.getElementById('submitBtn');
     const spinner = document.getElementById('spinner');
-    btn.disabled  = true;
+    btn.disabled = true;
     spinner.style.display = 'inline-block';
 
     try {
-      const res = await fetch('https://formsubmit.co/ajax/info@winwinequip.com', {
+      const res = await fetch('https://formsubmit.co/ajax/jeff.gilbert@jltmobile.com', {
         method: 'POST',
         headers: { 'Accept': 'application/json' },
         body: new FormData(this)
@@ -268,6 +225,5 @@
     }
   });
 </script>
-
 </body>
 </html>

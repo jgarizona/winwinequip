@@ -338,3 +338,10 @@ textarea { resize: vertical; min-height: 90px; }
 .pic-check-row:has(input:checked) .pic-check-label { color: var(--text-primary); }
 
 .span-full { grid-column: 1 / -1; }
+
+/* ---- Part rows ---- */
+.part-rows { display: flex; flex-direction: column; gap: 14px; }
+.part-row {
+  background: var(--bg-surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px;
+}

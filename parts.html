@@ -131,23 +131,18 @@
       <!-- SECTION 4: Parts Detail -->
       <div class="form-card">
         <h3>Parts &amp; Components Needed</h3>
-        <p class="form-card-sub">Describe what you need. Part numbers helpful but not required.</p>
-        <div class="form-group">
-          <label for="parts_needed">Parts / Components Description <span class="req">*</span></label>
-          <textarea id="parts_needed" name="parts_needed" required style="min-height:120px"
-            placeholder="e.g. Replacement displays for Thor VM3, keyboard assemblies for VM1A, docking stations, power supplies, RAM mounts, cables…"></textarea>
-        </div>
-        <div class="form-grid" style="margin-top:16px">
-          <div class="form-group">
-            <label for="qty_needed">Approximate Quantity</label>
-            <input type="text" id="qty_needed" name="quantity_needed" placeholder="e.g. 10 units, fleet of 40">
-          </div>
-          <div class="form-group">
-            <label for="part_numbers">Part Numbers (If Known)</label>
-            <input type="text" id="part_numbers" name="part_numbers" placeholder="e.g. VM3055CABLE, VM1001VMCRADLE">
-          </div>
-        </div>
-        <div class="form-group" style="margin-top:16px">
+        <p class="form-card-sub">Add each part or component separately. Part numbers are helpful but not required.</p>
+
+        <div class="part-rows" id="partRows"></div>
+
+        <button type="button" class="btn-add" onclick="addPartRow()" style="margin-top:10px">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Add Another Part / Component
+        </button>
+
+        <input type="hidden" name="parts_summary" id="parts_summary">
+
+        <div class="form-group" style="margin-top:20px">
           <label for="notes">Additional Notes (Optional)</label>
           <textarea id="notes" name="notes" placeholder="Budget range, delivery location, existing support contract details, etc."></textarea>
         </div>
@@ -175,6 +170,7 @@
 <script>
   if (!sessionStorage.getItem('ww_verified')) { window.location.href = 'index.html'; }
   buildModelCheckboxes('modelCheckGrid');
+  addPartRow(); // init first part row
 
   document.getElementById('partsForm').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -194,6 +190,22 @@
     if (!document.querySelector('input[name="contact_method"]:checked')) {
       alert('Please select a preferred contact method.'); return;
     }
+
+    // Validate at least one part row has a description
+    const partRows = document.querySelectorAll('.part-row');
+    let hasPartDesc = false;
+    partRows.forEach(r => { if (r.querySelector('textarea').value.trim()) hasPartDesc = true; });
+    if (!hasPartDesc) { alert('Please describe at least one part or component needed.'); return; }
+
+    // Compile parts into summary
+    const partLines = [];
+    partRows.forEach((r, i) => {
+      const desc = r.querySelector('textarea').value.trim();
+      const pn   = r.querySelector('input[id^="pn_"]').value.trim();
+      const qty  = r.querySelector('input[id^="pqty_"]').value.trim();
+      if (desc) partLines.push(`[Part ${i+1}] ${desc}${pn ? ' | Part#: ' + pn : ''}${qty ? ' | Qty: ' + qty : ''}`);
+    });
+    document.getElementById('parts_summary').value = partLines.join('\n');
 
     // Generate lead reference and subject
     const leadRef = getLeadID();

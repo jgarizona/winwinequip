@@ -113,6 +113,12 @@ function addRow() {
         </select>
       </div>
     </div>
+    <div style="margin-top:14px">
+      <label class="pic-check-row" for="pics_${idx}">
+        <input type="checkbox" id="pics_${idx}" name="pics_${idx}" value="Yes — can provide pictures">
+        <span class="pic-check-label">Can you provide pictures if needed?</span>
+      </label>
+    </div>
   `;
   container.appendChild(row);
   renumberRows();
@@ -139,7 +145,8 @@ function compileEquipmentSummary() {
     const cond  = row.querySelector(`select[id^="cond_"]`)?.value || '—';
     const eos   = row.querySelector(`select[id^="eos_"]`)?.value  || '—';
     const age   = row.querySelector(`select[id^="age_"]`)?.value  || '—';
-    lines.push(`[Group ${i+1}] Model: ${model} | Qty: ${qty} | Age: ${age} | Condition: ${cond} | Est. Remove From Service: ${eos}`);
+    const pics  = row.querySelector(`input[id^="pics_"]`)?.checked ? 'Yes' : 'No';
+    lines.push(`[Group ${i+1}] Model: ${model} | Qty: ${qty} | Age: ${age} | Condition: ${cond} | Est. Remove From Service: ${eos} | Pictures Available: ${pics}`);
   });
   return lines.join('\n');
 }
